@@ -10,15 +10,18 @@ import (
 )
 
 func main() {
-    // Define command line flags
+    // Define and parse command line flags
     var (
         verbose = flag.Bool("verbose", false, "Enable verbose logging")
         input   = flag.String("input", "", "Input file path")
         output  = flag.String("output", "", "Output file path")
     )
-
-    // Parse command line flags
     flag.Parse()
+
+    // Validate input and output flags
+    if *input == "" || *output == "" {
+        log.Fatal("Input and output file paths are required")
+    }
 
     // Create a new app instance with verbose logging
     app := mempoolmonitor.NewApp(*verbose)
